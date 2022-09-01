@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,ViewControllerDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var nameField: UITextField!
@@ -26,8 +26,13 @@ class ViewController: UIViewController {
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         nextButton.layer.cornerRadius = 30
     }
-    func callbackData(_ value:Student){
-        self.isUpdate = true
+//    func callbackData(_ value:Student){
+//        self.isUpdate = true
+//        self.nameField.text = value.name
+//        self.rollNoField.text = "\(value.rollNo)"
+//        self.sendBack = value
+//    }
+    func doSomethingWith(value: Student) {
         self.nameField.text = value.name
         self.rollNoField.text = "\(value.rollNo)"
         self.sendBack = value
@@ -89,15 +94,15 @@ class ViewController: UIViewController {
         }
         
     }
-    func searchBarClicked(_searchBar : UISearchBar){
-        
-    }
+
     @IBAction func nextButtonAction(_ sender: Any) {
         //  performSegue(withIdentifier: "nextButton", sender: self)
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "FetchListViewController") as! FetchListViewController
-        vc.pervious = self
+//        vc.pervious = self
         self.present(vc, animated: true, completion: nil)
+        vc.delegate = self
     }
 }
+
 
